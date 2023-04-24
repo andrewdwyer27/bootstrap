@@ -1,23 +1,28 @@
 import React, {useState, useEffect} from "react";
 import { UserDataContext } from "../../lib/context";
 import { useContext } from "react";
-import { setDoc, doc, getDoc, updateDoc, arrayRemove } from "firebase/firestore"
+import { setDoc, doc, getDoc, updateDoc, arrayRemove, getDocs, collection, addDoc, deleteDoc } from "firebase/firestore"
 import { firestore } from "../../lib/firebase";
+import { toast } from "react-hot-toast";
 
 export default function Notes() {
     const [userEmail, setUserEmail] = useState("");
     const [noteTitle, setNoteTitle] = useState("");
     const [noteContent, setNoteContent] = useState("");
+    const [noteTitleEdit, setNoteTitleEdit] = useState("");
+    const [noteContentEdit, setNoteContentEdit] = useState("");
     const [notes, setNotes] = useState([]);
-    const [isEditing, setIsEditing] = useState(false);
+    const [seeNotes, setSeeNotes] = useState(false);
+    const [editingNote, setEditingNote] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
     const {user} = useContext(UserDataContext);
 
     const getUserNotes = async () => {
         if(user.email !== "andrewdwyer27@gmail.com") {
-            const userDoc = doc(firestore, "users", `${user?.email}`);
-            const userDocData = await getDoc(userDoc);
-            const newNotes = userDocData.data().notes;
-            setNotes(newNotes);    
+            const userDoc = collection(firestore, "users", `${user?.email}`, "notes");
+            const getUserData = await getDocs(userDoc);
+            const userDocData = getUserData.docs.map((note) => note.data());
+            setNotes(userDocData);   
         }
 
     }
@@ -39,80 +44,131 @@ export default function Notes() {
         setNoteContent(evt.target.value);
     }
 
+    function handleNoteTitleEdit(evt) {
+        setNoteTitleEdit(evt.target.value);
+    }
+
+    function handleNoteContentEdit(evt) {
+        setNoteContentEdit(evt.target.value);
+    }
+
+    function displayBullets(content) {
+        const lines = content.split('\n');
+        const listItems = lines.map((line, index) => {
+          if (line.startsWith('* ') || line.startsWith('- ')) {
+            return (
+              <li key={index} className="text-white">
+                {line.slice(2)}
+              </li>
+            );
+          } else {
+            return (
+              <p key={index} className="text-white">
+                {line}
+              </p>
+            );
+          }
+        });
+    
+        return <ul>{listItems}</ul>;
+    }
+
     async function seeUserNotes(evt) {
-        const userDoc = doc(firestore, "users", `${userEmail}`);
-        const getUserDoc = await getDoc(userDoc);
-        const userDocData = getUserDoc.data().notes;
-        setIsEditing(!isEditing);
-        setNotes(userDocData);
+        try {
+            const userDoc = collection(firestore, "users", `${userEmail}`, "notes");
+            const getUserDoc = await getDocs(userDoc);
+            const userDocData = getUserDoc.docs.map(note => note.data());
+            setNotes(userDocData);
+            setSeeNotes(!seeNotes);
+        } catch(error) {
+            console.log("Did not type in user email");
+        }
+        
     }
 
     //Add a note
-    async function handleSubmit(evt, noteIndex) {
+    async function handleAdd(evt) {
         evt.preventDefault();
-        const userDoc = doc(firestore, "users", `${userEmail}`);
         let notesObject = {noteTitle: noteTitle, noteContent: noteContent};
-        const getUserDoc = await getDoc(userDoc);
-        let userDocData = getUserDoc.data().notes;
-        if(!isEditing) {
-            if(userDocData) {
-                const updatedData = { notes: [...userDocData, notesObject] };
-                await updateDoc(userDoc, updatedData, { merge: true });
-            }
-            else {
-                const updatedData = { notes: [notesObject] }
-                await updateDoc(userDoc, updatedData, { merge: true });
-            }  
-            setUserEmail("");
+        const userDoc = doc(firestore, "users", `${userEmail}`, "notes", notesObject.noteTitle);
+        await setDoc(userDoc, notesObject);
+        setNotes([...notes, notesObject]);
+        setNoteTitle("");
+        setNoteContent("");
+        toast.success("Note Added");
+    }
+
+    async function handleDelete(noteToRemove) {
+        console.log("Deleting " + noteToRemove);
+        const userDoc = doc(firestore, "users", `${userEmail}`, "notes", noteToRemove);
+        await deleteDoc(userDoc);
+        const updatedNotes = notes.filter(note => note.noteTitle !== noteToRemove);
+        setNotes(updatedNotes);
+        toast.success("Note Deleted");
+    }
+
+    async function handleEdit(noteToEdit) {
+        if (isSaving) {
+            const oldNoteDoc = doc(firestore, "users", `${userEmail}`, "notes", noteToEdit);
+            const updatedData = { noteTitle: noteTitleEdit, noteContent: noteContentEdit };
+            const newNoteDoc = doc(firestore, "users", `${userEmail}`, "notes", noteTitleEdit);
+            await deleteDoc(oldNoteDoc)
+            await setDoc(newNoteDoc, updatedData);
+            setIsSaving(false);
+            toast.success("Note Edited");
         } else {
-            console.log("HELLO");
-            userDocData[noteIndex] = notesObject;
-            const updatedData = { notes: userDocData};
-            setNotes(userDocData);
-            await updateDoc(userDoc, updatedData, {merge: true}); 
+            setEditingNote(noteToEdit);
+            setIsSaving(true);
         }
         
 
         
-        setNoteTitle("");
-        setNoteContent("");
 
-
-    }
-
-    async function handleDelete(noteToRemove) {
-        const userDoc = doc(firestore, "users", `${userEmail}`);
-        const getUserDoc = await getDoc(userDoc);
-        const userDocData = getUserDoc.data().notes;
-        const updatedData = { notes: userDocData.arrayRemove(noteToRemove)};
-        await updateDoc(userDoc, updatedData, {merge: true});
     }
     
 
     return (
-        <div>
+        <div className="bg-backgroundgray min-h-screen w-full">
             {user?.email === "andrewdwyer27@gmail.com" 
             ? 
             <div>
-                <form onSubmit={handleSubmit} className="flex flex-col items-center">
+                <form onSubmit={handleAdd} className="flex flex-col items-center">
                     <h1>NEW NOTE</h1>
-                    <input placeholder="User's Email" value={userEmail} onChange={handleUserEmailChange} className="border-2 m-3 w-3/12 p-3 rounded-lg"/>
-                    <input placeholder="Note's Title" value={noteTitle} onChange={handleNoteTitleChange} className="border-2 m-3 w-3/12 p-3 rounded-lg"/>
-                    <input placeholder ="Note's Content" value={noteContent} onChange={handleNoteContentChange} className="border-2 m-3 w-3/12 p-3 rounded-lg"/>
-                    <button type="button" className="border-2 p-3 rounded-lg bg-blue-600 text-white" onClick={seeUserNotes}>See user notes</button>
-                    <button type="submit" className="border-2 p-3 rounded-lg bg-blue-600 text-white">Submit</button>
+                    <input placeholder="User's Email" value={userEmail} onChange={handleUserEmailChange} className="m-3 w-3/12 p-3 rounded-lg"/>
+                    <input placeholder="Note's Title" value={noteTitle} onChange={handleNoteTitleChange} className="m-3 w-3/12 p-3 rounded-lg"/>
+                    <textarea placeholder ="Note's Content" value={noteContent} onChange={handleNoteContentChange} className="m-3 w-3/12 p-3 rounded-lg"/>
+                    <div className="flex justify-around w-3/12">
+                        <button type="button" className="p-3 rounded-lg bg-primary-green text-white font-bold" onClick={seeUserNotes}>See user notes</button>
+                        <button type="submit" className="p-3 rounded-lg bg-primary-green text-white font-bold">Submit</button>
+                    </div>
+                    
                 </form>
-                {isEditing 
+                {seeNotes 
                 ? 
-                <div className="flex m-2 flex-wrap">
+                <div className="flex justify-center m-2 flex-wrap">
                     {notes?.map((note,index) => (
-                        <div key={index} className="bg-blue-600 w-1/6  h-32 flex flex-col items-center border-2 rounded-lg">
-                            <h1 className="text-white">{note.noteTitle}</h1>
-                            <h3 className="text-white">{note.noteContent}</h3>
+                        <div key={index} className="bg-primary-green w-9/12 h-fit rounded-lg mt-5">
+                            {note.noteTitle == editingNote && isSaving
+                            ? 
                             <div>
-                                <button onClick={(evt) => handleSubmit(evt, index)} className="bg-darkgold p-2 rounded-lg">Edit</button>
-                                <button onClick={() => handleDelete(index)} className="bg-darkgold p-2 rounded-lg">Delete</button>
+                                <input placeholder={note.noteTitle} value={noteTitleEdit} onChange={handleNoteTitleEdit}/>
+                                <input placeholder={note.noteContent} value={noteContentEdit} onChange={handleNoteContentEdit}/>
+                            </div> 
+                            : 
+                            <div>   
+                                <div className="h-fit">
+                                    <h1 className="text-white text-center">{note.noteTitle}</h1>
+                                    <div>{displayBullets(note.noteContent)}</div>
+                                </div>
+                                
+                                <div className="flex justify-end h-12">
+                                    <button onClick={() => handleEdit(note.noteTitle)} className="bg-primary-red p-1 px-2 rounded-l-lg border-r-2 border-white text-white font-bold">{isSaving ? "Save" : "Edit"}</button>
+                                    <button onClick={() => handleDelete(note.noteTitle)} className="bg-primary-red p-1 px-2 rounded-br-lg text-white font-bold">Delete</button>
+                                </div>
                             </div>
+                            }
+                            
+                            
                             
                         </div>
                     ))}
@@ -123,11 +179,15 @@ export default function Notes() {
 
 
             : 
-            <div className="h-44 border-2 flex flex-wrap">
+            <div className="flex justify-center m-2 flex-wrap">
                 {notes?.map((note, index) => (
-                    <div key={index} className="bg-blue-600 w-1/6  h-32 flex flex-col items-center border-2 m-2 rounded-lg">
-                        <h3 className="text-white">{note.noteTitle}</h3> 
-                        <h3 className="text-white">{note.noteContent}</h3>
+                    <div key={index} className="bg-primary-green w-9/12 h-fit rounded-lg mt-5">
+                        <div>   
+                            <div className="h-fit">
+                                <h1 className="text-white text-center">{note.noteTitle}</h1>
+                                <div>{displayBullets(note.noteContent)}</div>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>

@@ -9,7 +9,6 @@ import axios from "axios";
 export default function Home() {
   return (
     <div>
-      <Navbar/>
       <HeroSection/>
       <SignUp/>
       <MiddleBar/>

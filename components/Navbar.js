@@ -22,17 +22,17 @@ export default function MyNavbar() {
     }, []);
 
     return (
-      <Navbar bg="light" expand="lg" className="bg-blue-600">
-        <Container className="border-2">
+      <Navbar expand="lg" className="backgroundgray">
+        <Container>
           <Navbar.Brand href="#home">My App</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto mx-auto text-darkblue">
-              <Nav.Link href="#home" className="m-3 d-flex align-items-center transition-all hover:border-b-2 hover:border-b-lightblue" style={{ color: "#2563EB"}}><AiFillHome className="mr-2" fill="darkblue"/>HOME</Nav.Link>
-              <Nav.Link href="/payments" className="m-3 d-flex align-items-center transition-all hover:border-b-2 hover:border-b-lightblue" style={{ color: "#2563EB"}}><FaFileInvoiceDollar className="mr-2" fill="darkblue"/>PAYMENTS</Nav.Link>
-              <Nav.Link href="#link" className="m-3 d-flex align-items-center transition-all hover:border-b-2 hover:border-b-lightblue" style={{ color: "#2563EB"}}><FaVideo className="mr-2" fill="darkblue"/>COURSES</Nav.Link>
-              <Nav.Link href="/notes" className="m-3 d-flex align-items-center transition-all hover:border-b-2 hover:border-b-lightblue" style={{ color: "#2563EB"}}><FaVideo className="mr-2" fill="darkblue"/>NOTES</Nav.Link>
-              <Nav.Link href="#link" className="m-3 d-flex align-items-center transition-all hover:border-b-2 hover:border-b-lightblue" style={{ color: "#2563EB"}}><IoMdContact className="mr-2" fill="darkblue"/>CONTACT</Nav.Link>
+              <Nav.Link href="/" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>HOME</Nav.Link>
+              <Nav.Link href="/payments" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>PAYMENTS</Nav.Link>
+              <Nav.Link href="#link" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>COURSES</Nav.Link>
+              <Nav.Link href="/notes" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>NOTES</Nav.Link>
+              <Nav.Link href="#link" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>CONTACT</Nav.Link>
             </Nav>
             {(isClient && user) ? <SignOutButton/> : <SignInButton/>}
           </Navbar.Collapse>
@@ -47,7 +47,7 @@ function SignInButton() {
             const result = await signInWithPopup(auth, googleAuthProvider);
             const user = result.user;
             await saveUserDataToFireStore(user);
-            toast.success("Logged in");
+            toast.success("Signed in");
 
         }
         catch(error) {
@@ -56,8 +56,8 @@ function SignInButton() {
     }
 
     return (
-        <button onClick={handleSignIn} className="flex border-2 items-center rounded-xl bg-blue-600 pr-3">
-            <img src={"/google.png"} alt="Google Logo" className="w-16"/>Log in
+        <button onClick={handleSignIn} className="flex items-center rounded-xl bg-primary-green p-3 px-4 text-white font-bold hover:drop-shadow-lg">
+            Sign in
         </button>
     )
 }
@@ -66,7 +66,7 @@ function SignOutButton() {
     const handleSignOut = async () => {
         try {
             await signOut(auth);
-            toast.success("Logged out")
+            toast.success("Signed out")
         } catch(error) {
             console.log("Error signing out: " + error);
         }
@@ -74,8 +74,8 @@ function SignOutButton() {
 
     }
     return (
-        <button onClick={handleSignOut} className="flex border-2 items-center rounded-xl bg-blue-600 pr-3">
-            <img src={"/google.png"} alt= "Google Logo" className="w-16"/>Log out
+        <button onClick={handleSignOut} className="flex items-center rounded-xl bg-primary-green p-3 px-4 text-white font-bold hover:drop-shadow-lg">
+            Sign out
         </button>
     )
 }

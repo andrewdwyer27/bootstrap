@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Hi */
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+.typing {
+    @apply relative inline-block;
+    max-width: 100%;
+}
+
+.typing::after {
+    @apply absolute top-0 right-0 h-full border-r-2 border-blue-500;
+    content: '';
+    animation: blink 1s steps(1) infinite;
+}
+
+.typing-text {
+    @apply whitespace-nowrap;
+    animation: typing 2s steps(3) 1s 1 normal both;
+    /* Change steps(100) to steps(4) */
+}
