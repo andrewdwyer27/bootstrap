@@ -8,21 +8,15 @@ export default async function handler(req, res) {
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
         line_items: [
-          {
-            quantity: 1,
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: 'Your Product Name',
-              },
-              unit_amount: customPrice,
-            },
-          }
+            {
+                price: 'price_1N0rXtLQAndH4gXN6EXuxJJl',
+                quantity: 1
+            }, 
         ],
         customer_email: `${email}`,
         mode: 'payment',
-        success_url: `${req.headers.origin}/?success=true`,
-        cancel_url: `${req.headers.origin}/?canceled=true`,
+        success_url: `${req.headers.origin}/courses/success`,
+        cancel_url: `${req.headers.origin}/courses/error`,
       });
       res.redirect(303, session.url);
     } catch (err) {

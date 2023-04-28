@@ -23,9 +23,9 @@ export default function CheckoutButton({ customPrice }) {
   }, []);
 
   return (
-    <form action={`/api/stripe/checkout_sessions?email=${user?.email}&customPrice=${customPrice}`} method="POST">
+    <form action={`/api/stripe/buy-handbook?email=${user?.email}&customPrice=${customPrice}`} method="POST">
       <section>
-        <button type="submit" role="link">
+        <button type="submit" role="link" className="w-full">
           Checkout
         </button>
       </section>

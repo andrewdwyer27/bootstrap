@@ -133,13 +133,13 @@ export default function Notes() {
             ? 
             <div>
                 <form onSubmit={handleAdd} className="flex flex-col items-center">
-                    <h1>NEW NOTE</h1>
+                    <h1 className="text-white text-center font-bold">Notes</h1>
                     <input placeholder="User's Email" value={userEmail} onChange={handleUserEmailChange} className="m-3 w-3/12 p-3 rounded-lg"/>
                     <input placeholder="Note's Title" value={noteTitle} onChange={handleNoteTitleChange} className="m-3 w-3/12 p-3 rounded-lg"/>
                     <textarea placeholder ="Note's Content" value={noteContent} onChange={handleNoteContentChange} className="m-3 w-3/12 p-3 rounded-lg"/>
                     <div className="flex justify-around w-3/12">
-                        <button type="button" className="p-3 rounded-lg bg-primary-green text-white font-bold" onClick={seeUserNotes}>See user notes</button>
-                        <button type="submit" className="p-3 rounded-lg bg-primary-green text-white font-bold">Submit</button>
+                        <button type="button" className="p-3 rounded-lg bg-primary-green text-white font-bold hover:drop-shadow-lg" onClick={seeUserNotes}>See user notes</button>
+                        <button type="submit" className="p-3 rounded-lg bg-primary-green text-white font-bold hover:drop-shadow-lg">Submit</button>
                     </div>
                     
                 </form>
@@ -180,6 +180,7 @@ export default function Notes() {
 
             : 
             <div className="flex justify-center m-2 flex-wrap">
+                <h1 className="text-white w-full text-center font-bold">Notes</h1>
                 {notes?.map((note, index) => (
                     <div key={index} className="bg-primary-green w-9/12 h-fit rounded-lg mt-5">
                         <div>   

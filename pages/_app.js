@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserDataProvider } from "../lib/context";
 import { Toaster } from "react-hot-toast";

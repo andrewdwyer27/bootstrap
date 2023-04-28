@@ -20,7 +20,6 @@ module.exports = {
         "xl": "-15px 15px 0 rgba(28, 34, 60, 1)",
       },
       colors: {
-        current: "currentColor",
         "darkblue": "#094067",
         "darkgold": "#D0AE33",
         "background-color": "#F8FAFC",

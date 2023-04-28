@@ -18,17 +18,17 @@ export default function SignUp() {
 
   return (
     <div className="flex justify-center">
-      <form onSubmit={handleSubmit} className="mt-24 flex items-center justify-between bg-gray-container w-8/12 rounded-lg p-2">
-        <h4 className="text-white font-bold">Sign Up For A Free Session</h4>
+      <form onSubmit={handleSubmit} className="mt-24 border-2 flex flex-col items-center bg-gray-container w-8/12 rounded-lg p-2 lg:justify-between lg:items-center">
+        <h4 className="text-white font-bold ml-3 mt-2 sm:text-center">Sign Up For A Free Session</h4>
         <div>
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={handleEmailChange}
-            className="ml-3 h-14 rounded-l-xl p-2 bg-transparent w-80 text-white"
+            className="ml-3 h-14 rounded-xl p-2 bg-transparent w-80 text-white lg:rounded-l-xl lg:rounded-r-none"
           />
-          <button type="submit" className="h-14 rounded-r-xl p-2 bg-primary-green text-white font-bold hover:drop-shadow-lg">Submit</button>
+          <button type="submit" className="h-14 rounded-xl p-2 bg-primary-green text-white font-bold hover:drop-shadow-lg lg:rounded-r-xl lg:rounded-l-none">Submit</button>
         </div>
       </form>
     </div>

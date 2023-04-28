@@ -30,9 +30,9 @@ export default function MyNavbar() {
             <Nav className="me-auto mx-auto text-darkblue">
               <Nav.Link href="/" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>HOME</Nav.Link>
               <Nav.Link href="/payments" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>PAYMENTS</Nav.Link>
-              <Nav.Link href="#link" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>COURSES</Nav.Link>
+              <Nav.Link href="/courses" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>COURSES</Nav.Link>
               <Nav.Link href="/notes" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>NOTES</Nav.Link>
-              <Nav.Link href="#link" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>CONTACT</Nav.Link>
+              <Nav.Link href="/contact" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>CONTACT</Nav.Link>
             </Nav>
             {(isClient && user) ? <SignOutButton/> : <SignInButton/>}
           </Navbar.Collapse>
