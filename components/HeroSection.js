@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 export default function HeroSection() {
   const [text, setText] = useState("");
-  const targetText = "CODE";
+  const targetText = 'CODE';
   const typingSpeed = 200; // Typing speed in milliseconds
 
   useEffect(() => {

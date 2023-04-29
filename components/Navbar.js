@@ -24,7 +24,7 @@ export default function MyNavbar() {
     return (
       <Navbar expand="lg" className="backgroundgray">
         <Container>
-          <Navbar.Brand href="#home">My App</Navbar.Brand>
+          <Navbar.Brand href="/"><img src="./logo.png" width="200" height="200" className="d-inline-block align-top"/></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto mx-auto text-darkblue">
