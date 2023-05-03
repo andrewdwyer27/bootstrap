@@ -52,13 +52,8 @@ export default function Payments() {
         }
         
 
-        const response4 = await fetch("/api/stripe/create-invoice", {
-            method: "POST",
-            body: JSON.stringify({
-              invoicePrice: `${invoicePrice * 100}`,
-              customerId: customerId
-            }),
-        });
+        const response4 = await fetch(`/api/stripe/create-invoice?invoicePrice=${invoicePrice * 100}&customerId=${customerId}`);
+        
 
         setEmail("");
         setInvoicePrice("");

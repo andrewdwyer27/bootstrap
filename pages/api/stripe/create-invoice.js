@@ -1,7 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-    const { invoicePrice, customerId } = JSON.parse(req.body);
+    const { invoicePrice, customerId } = req.query;
 
 
     //Create a draft invoice first
