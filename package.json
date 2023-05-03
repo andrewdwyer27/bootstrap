@@ -23,8 +23,10 @@
     "react-firebase-hooks": "^5.1.1",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.8.0",
+    "react-parallax-tilt": "^1.7.131",
     "stripe": "^12.2.0",
-    "twilio": "^4.10.0"
+    "twilio": "^4.10.0",
+    "typewriter-effect": "^2.19.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

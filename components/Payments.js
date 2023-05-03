@@ -87,7 +87,7 @@ export default function Payments() {
     }
     
     return (
-        <div>
+        <div className="bg-backgroundgray min-h-screen w-full">
             {user?.email === "andrewdwyer27@gmail.com" 
             ? 
                 <div>
@@ -132,7 +132,7 @@ export default function Payments() {
                 
 
             :
-            <div>
+            <div className="bg-backgroundgray min-h-screen w-full">
                 <h1 className="text-center text-white font-bold">Payments</h1>
                 <div className="flex justify-center flex-wrap">
                     {invoices?.map((invoice) => 

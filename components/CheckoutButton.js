@@ -25,14 +25,13 @@ export default function CheckoutButton({ customPrice }) {
   return (
     <form action={`/api/stripe/buy-handbook?email=${user?.email}&customPrice=${customPrice}`} method="POST">
       <section>
-        <button type="submit" role="link" className="w-full">
+        <button type="submit" role="link" className="w-full hover:drop-shadow-lg">
           Checkout
         </button>
       </section>
       <style jsx>
         {`
           button {
-            height: 36px;
             background: rgba(48,131,109,1);
             padding: 10px;
             border-radius: 4px;

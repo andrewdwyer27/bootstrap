@@ -86,17 +86,17 @@ export default function Payments() {
     }
     
     return (
-        <div>
+        <div className="bg-backgroundgray min-h-screen w-full">
             {user?.email === "andrewdwyer27@gmail.com" 
             ? 
-                <div>
+                <div className="flex flex-col items-center ">
                     <h1 className="text-white text-center font-bold">Payments</h1>
-                    <form onSubmit={sendInvoice}className="flex flex-col items-center">
-                        <input placeholder="User's Email" value={email} onChange={handleEmailChange} className="m-3 w-3/12 p-3 rounded-lg"/>
-                        <input placeholder="$" value={invoicePrice} onChange={handleInvoicePriceChange} className="m-3 w-3/12 p-3 rounded-lg"/>
-                        <div className="flex justify-around w-3/12">
-                            <button type="button" className="p-3 rounded-lg bg-primary-green text-white font-bold hover:drop-shadow-lg" onClick={handleSeeUserInvoices}>See User's Invoices</button>
-                            <button className="p-3 rounded-lg bg-primary-green text-white font-bold hover:drop-shadow-lg">Send Invoice</button>
+                    <form onSubmit={sendInvoice}className="bg-gray-container w-9/12 rounded-lg flex flex-col items-center">
+                        <input placeholder="User's Email" value={email} onChange={handleEmailChange} className="bg-form-input text-white m-3 w-11/12 p-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-green lg:w-3/12"/>
+                        <input placeholder="$" value={invoicePrice} onChange={handleInvoicePriceChange} className="bg-form-input text-white m-3 w-11/12 p-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-green lg:w-3/12"/>
+                        <div className="flex justify-around">
+                            <button type="button" className="p-3 m-3 rounded-lg bg-primary-green text-white font-bold hover:drop-shadow-lg" onClick={handleSeeUserInvoices}>See User's Invoices</button>
+                            <button className="p-3 m-3 rounded-lg bg-primary-green text-white font-bold hover:drop-shadow-lg">Send Invoice</button>
                         </div>
                     </form>
                     <div>
@@ -108,14 +108,14 @@ export default function Payments() {
                                 <div className="bg-gray-container p-3 w-9/12 text-white font-bold text-center rounded-lg mt-10">
                                     <h1 className="font-bold">Coding Lesson</h1>
                                     <h3>${invoice.invoicePrice}</h3>
-                                    <Link href={invoice.invoiceURL || "#"}>
+                                    <Link href={invoice.invoiceURL || "#"} className="border-2 w-full">
                                         {!invoice.isPaid 
                                         ? 
-                                        <button className="bg-primary-green p-3 rounded-xl text-white hover:drop-shadow-lg w-2/12">
+                                        <button className="bg-primary-green rounded-xl text-white hover:drop-shadow-lg">
                                             Pay Now
                                         </button>
                                         :
-                                        <button className="bg-primary-red p-3 rounded-xl text-white hover:drop-shadow-lg w-2/12">
+                                        <button className="bg-primary-red p-4 rounded-xl text-white hover:drop-shadow-lg">
                                             Paid
                                         </button>
                                         }    
@@ -141,11 +141,11 @@ export default function Payments() {
                         <Link href={invoice.invoiceURL || "#"}>
                             {!invoice.isPaid 
                             ? 
-                            <button className="bg-primary-green p-3 rounded-xl text-white hover:drop-shadow-lg w-2/12">
+                            <button className="bg-primary-green p-3 rounded-xl text-white hover:drop-shadow-lg w-4/12 lg:w-2/12">
                                 Pay Now
                             </button>
                             :
-                            <button className="bg-primary-red p-3 rounded-xl text-white hover:drop-shadow-lg w-2/12">
+                            <button className="bg-primary-red p-3 rounded-xl text-white hover:drop-shadow-xl w-4/12 lg:w-2/12">
                                 Paid
                             </button>
                             }    

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -6,7 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { googleAuthProvider, auth } from "../lib/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { saveUserDataToFireStore } from "../lib/helpers";
-import {useContext} from "react";
+import { useContext } from "react";
 import { UserDataContext } from "../lib/context";
 import toast from "react-hot-toast";
 import { AiFillHome } from "react-icons/Ai"
@@ -14,32 +14,36 @@ import { FaFileInvoiceDollar } from "react-icons/Fa";
 import { FaVideo } from "react-icons/Fa";
 import { IoMdContact } from "react-icons/Io"
 export default function MyNavbar() {
-    const {user} = useContext(UserDataContext);
+    const { user } = useContext(UserDataContext);
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-      setIsClient(true);
+        setIsClient(true);
     }, []);
 
     return (
-      <Navbar expand="lg" className="backgroundgray">
-        <Container>
-          <Navbar.Brand href="/"><img src="./logo.png" width="200" height="200" className="d-inline-block align-top"/></Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto mx-auto text-darkblue">
-              <Nav.Link href="/" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>HOME</Nav.Link>
-              <Nav.Link href="/payments" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>PAYMENTS</Nav.Link>
-              <Nav.Link href="/courses" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>COURSES</Nav.Link>
-              <Nav.Link href="/notes" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>NOTES</Nav.Link>
-              <Nav.Link href="/contact" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px"}}>CONTACT</Nav.Link>
-            </Nav>
-            {(isClient && user) ? <SignOutButton/> : <SignInButton/>}
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+        <Navbar expand="lg" className="backgroundgray">
+            <Container>
+                <Navbar.Brand href="/"><img src="./logo.png" width="192" height="200"/></Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mx-auto text-darkblue">
+                        <Nav.Link href="/" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px" }}>HOME</Nav.Link>
+                        <Nav.Link href="/payments" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px" }}>PAYMENTS</Nav.Link>
+                        <Nav.Link href="/courses" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px" }}>COURSES</Nav.Link>
+                        <Nav.Link href="/notes" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px" }}>NOTES</Nav.Link>
+                        <Nav.Link href="/contact" className="m-3 d-flex align-items-center transition-all hover:opacity-20" style={{ color: "white", fontWeight: "700", fontSize: "16px", lineHeight: "24px" }}>CONTACT</Nav.Link>
+                    </Nav>
+                    <div className="w-56 flex justify-end">
+                        {(isClient && user) ? <SignOutButton /> : <SignInButton />}
+                    </div>
+                    
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+
     );
-  }
+}
 
 function SignInButton() {
     const handleSignIn = async () => {
@@ -50,7 +54,7 @@ function SignInButton() {
             toast.success("Signed in");
 
         }
-        catch(error) {
+        catch (error) {
             console.log("Error signing in with google: " + error);
         }
     }
@@ -67,10 +71,10 @@ function SignOutButton() {
         try {
             await signOut(auth);
             toast.success("Signed out")
-        } catch(error) {
+        } catch (error) {
             console.log("Error signing out: " + error);
         }
-        
+
 
     }
     return (

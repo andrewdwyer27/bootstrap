@@ -1,37 +1,24 @@
 import React, { useState, useEffect } from "react";
+import Tilt from 'react-parallax-tilt';
+import TypeWriter from "../components/TypeWriter";
 
 export default function HeroSection() {
-  const [text, setText] = useState("");
-  const targetText = 'CODE';
-  const typingSpeed = 200; // Typing speed in milliseconds
-
-  useEffect(() => {
-    let index = 0;
-    const typingInterval = setInterval(() => {
-      if (index < targetText.length) {
-        setText((prevText) => prevText + targetText.charAt(index));
-        index++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, typingSpeed);
-
-    return () => clearInterval(typingInterval);
-  }, [targetText, typingSpeed]);
-
   return (
     <div className="w-full h-auto flex flex-col items-center lg:flex-row">
-      <div className="h-44 w-3/6 mt-20 flex flex-col items-center">
+      <div className="h-44 w-11/12 mt-20 flex flex-col items-center lg:w-6/12">
         <h1 className="text-white font-bold text-center">
           LEARN TO LEARN <br />
-          <span className="typing">
-            <span>HOW TO </span> <span className="typing-text text-primary-green">{text}</span>
+          <span className="flex">
+            <span className="mr-2">HOW TO</span> <span className="text-primary-green"><TypeWriter options={{loop:true}}/></span>
           </span>
         </h1>
-        <p className="text-grayfont w-3/6 text-center font-bold">Empower kids with exceptional coding tutor, unlocking mastery through innovative, impressive projects. Ignite potential!</p>
+        <p className="text-grayfont text-center font-bold">Empower kids with exceptional coding tutor, unlocking mastery through innovative, impressive projects. Ignite potential!</p>
       </div>
-      <div className="h-44 mt-20 w-3/6 flex justify-center items-center">
-        <img src="./code.gif" className="w-9/12"/>
+      <div className="h-44 mt-16 w-11/12 flex justify-center items-center lg:w-4/12 lg:ml-20">
+        <Tilt>
+            <img src="./code.gif"/>
+        </Tilt>
+        
       </div>
 
     </div>

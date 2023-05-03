@@ -17,7 +17,7 @@ module.exports = {
             "0 -1px 0 white"
         ],
         "lg": '0 0 20px rgba(48, 131, 109, 1)',
-        "xl": "-15px 15px 0 rgba(28, 34, 60, 1)",
+        "xl": '0 0 20px rgba(237,50,55, 1)',
       },
       colors: {
         "darkblue": "#094067",
@@ -31,7 +31,9 @@ module.exports = {
         "primary-green": "rgba(48,131,109,1)",
         "primary-red": "#ED3237",
         "gray-container": "rgb(28, 32, 37)",
-        "grayfont": "#6E7174"
+        "grayfont": "#6E7174",
+        "form-input": "#23272C",
+        "form-background": "#1C2025"
       },
     },
   },
