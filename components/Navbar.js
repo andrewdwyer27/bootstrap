@@ -2,17 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { googleAuthProvider, auth } from "../lib/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { saveUserDataToFireStore } from "../lib/helpers";
 import { useContext } from "react";
 import { UserDataContext } from "../lib/context";
 import toast from "react-hot-toast";
-import { AiFillHome } from "react-icons/Ai"
-import { FaFileInvoiceDollar } from "react-icons/Fa";
-import { FaVideo } from "react-icons/Fa";
-import { IoMdContact } from "react-icons/Io"
+
 export default function MyNavbar() {
     const { user } = useContext(UserDataContext);
     const [isClient, setIsClient] = useState(false);
