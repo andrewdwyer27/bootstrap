@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { ImPriceTag } from "react-icons/im";
-import { AiFillHome } from "react-icons/Ai";
-import { GiTeacher } from "react-icons/Gi";
-import { BsFileEarmarkCode } from "react-icons/Bs";
+import { AiFillHome } from "react-icons/ai";
+import { GiTeacher } from "react-icons/gi";
+import { BsFileEarmarkCode } from "react-icons/bs";
 import { Slide } from "react-awesome-reveal";
 
 export default function WhyUs() {
