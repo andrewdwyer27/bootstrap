@@ -131,7 +131,7 @@ export default function Notes() {
         <div className="bg-backgroundgray min-h-screen w-full">
             {user?.email === "andrewdwyer27@gmail.com" 
             ? 
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center">
                 <form onSubmit={handleAdd} className="bg-gray-container w-9/12 rounded-lg flex flex-col items-center">
                     <h1 className="text-white text-center font-bold">Notes</h1>
                     <input placeholder="User's Email" value={userEmail} onChange={handleUserEmailChange} className="bg-form-input text-white m-3 w-11/12 p-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-green lg:w-3/12"/>
@@ -145,7 +145,7 @@ export default function Notes() {
                 </form>
                 {seeNotes 
                 ? 
-                <div className="flex justify-center m-2 flex-wrap">
+                <div className="flex justify-center m-2 flex-wrap w-full">
                     {notes?.map((note,index) => (
                         <div key={index} className="bg-gray-container w-9/12 h-fit rounded-lg mt-5 font-bold">
                             {note.noteTitle == editingNote && isSaving

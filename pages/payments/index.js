@@ -102,14 +102,14 @@ export default function Payments() {
                                 <div className="bg-gray-container p-3 w-9/12 text-white font-bold text-center rounded-lg mt-10">
                                     <h1 className="font-bold">Coding Lesson</h1>
                                     <h3>${invoice.invoicePrice}</h3>
-                                    <Link href={invoice.invoiceURL || "#"} className="border-2 w-full">
+                                    <Link href={invoice.invoiceURL || "#"} className="w-full">
                                         {!invoice.isPaid 
                                         ? 
-                                        <button className="bg-primary-green rounded-xl text-white hover:drop-shadow-lg">
+                                        <button className="bg-primary-green p-3 rounded-xl text-white hover:drop-shadow-lg w-4/12 lg:w-2/12">
                                             Pay Now
                                         </button>
                                         :
-                                        <button className="bg-primary-red p-4 rounded-xl text-white hover:drop-shadow-lg">
+                                        <button className="bg-primary-red p-3 rounded-xl text-white hover:drop-shadow-xl w-4/12 lg:w-2/12">
                                             Paid
                                         </button>
                                         }    
