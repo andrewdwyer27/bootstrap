@@ -10,7 +10,7 @@ export default function WhyUs() {
         <div>
             <h1 className="text-center mt-10 text-primary-green font-bold">WHY CHOOSE US?</h1>
             
-            <div className="w-full mt-10 flex flex-col items-center [&>*]:h-full lg:flex-row lg:justify-evenly lg:items-stretch lg:space-x-4 lg:px-4">
+            <div className="w-full flex flex-col items-center lg:flex-row lg:justify-evenly lg:items-stretch lg:space-x-4 lg:px-4 lg:mt-10">
                 <div className="h-76 mt-10 w-11/12 lg:m-0">
                     <Slide direction="left">
                         <div className="rounded-xl bg-gray-container h-full p-4">
@@ -30,7 +30,7 @@ export default function WhyUs() {
                     </Slide>
                 </div>
                 <div className="h-76 mt-10 w-11/12 lg:m-0">
-                    <Slide direction="right">
+                    <Slide direction="left">
                         <div className="rounded-xl bg-gray-container h-full p-4">
                             <div className="bg-primary-green w-16 h-16 mt-4 ml-4 rounded-2xl flex justify-center items-center text-white text-4xl"><AiFillHome/></div>
                             <h2 className="ml-4 text-white font-bold">BEST STUDENTS</h2>
@@ -39,7 +39,7 @@ export default function WhyUs() {
                     </Slide>
                 </div>
                 <div className="h-76 mt-10 w-11/12 lg:m-0">
-                    <Slide direction="right">
+                    <Slide direction="left">
                         <div className="rounded-xl bg-gray-container h-full p-4">
                             <div className="bg-primary-green w-16 h-16 mt-4 ml-4 rounded-2xl flex justify-center items-center text-white text-4xl"><ImPriceTag/></div>
                             <h2 className="ml-4 text-white font-bold">BEST PRICE</h2>
